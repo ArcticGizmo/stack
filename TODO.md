@@ -1,0 +1,2 @@
+- fixed the multiline replacements
+- update folder names based on app name

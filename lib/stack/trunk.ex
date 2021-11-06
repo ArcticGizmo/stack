@@ -48,4 +48,8 @@ defmodule Stack.Trunk do
       {key, String.replace(data, pattern, replacement)}
     end)
   end
+
+  def replace(structure, key, pattern, replacement) do
+    Map.update!(structure, key, &String.replace(&1, pattern, replacement))
+  end
 end
