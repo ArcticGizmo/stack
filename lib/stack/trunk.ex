@@ -1,5 +1,5 @@
 defmodule Stack.Trunk do
-  defmacro keep(priv_path) do
+  defmacro bring(priv_path) do
     structure = read_path_from_priv(priv_path)
 
     quote do
@@ -27,13 +27,25 @@ defmodule Stack.Trunk do
     |> Enum.reject(&is_nil/1)
   end
 
-  def dump_structure(structure, dirname) do
+  def dump(structure, dirname) do
     target = Path.join(File.cwd!(), dirname)
 
     Enum.each(structure, fn {short_path, data} ->
       path = Path.join(target, short_path)
       File.mkdir_p!(Path.dirname(path))
       File.write(path, data)
+    end)
+  end
+
+  def rename(structure, from, to) do
+    structure
+    |> Map.put(to, structure[from])
+    |> Map.drop([from])
+  end
+
+  def replace_everywhere(structure, pattern, replacement) do
+    Enum.map(structure, fn {key, data} ->
+      {key, String.replace(data, pattern, replacement)}
     end)
   end
 end

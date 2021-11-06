@@ -1,9 +1,7 @@
 defmodule Stack.CLI do
-  require Stack.Trunk
-
-  @phx Stack.Trunk.keep("phx")
 
   def main(_args) do
-    IO.inspect(@phx)
+    # IO.inspect(@phx)
+    Stack.Phx.create()
   end
 end
