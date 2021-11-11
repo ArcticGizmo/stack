@@ -15,12 +15,13 @@ defmodule Stack.Phx do
   defp use_repo(structure, true), do: structure
 
   defp use_repo(structure, false) do
-    r_config = "config :__MY__APP__,
-    namespace: __MY__MODULE__,
-    ecto_repos: [__MY__MODULE__.Repo]
-    "
+    r_config = "
+    config :__MY__APP__,
+      namespace: __MY__MODULE__,
+      ecto_repos: [__MY__MODULE__.Repo]"
 
-    r_dev = "# Configure your database
+    r_dev = "
+    # Configure your database
     config :__MY__APP__, __MY__MODULE__.Repo,
       username: \"postgres\",
       password: \"postgres\",
@@ -29,13 +30,14 @@ defmodule Stack.Phx do
       show_sensitive_data_on_connection_error: true,
       pool_size: 10"
 
-    r_prod_secret = "config :__MY__APP__, __MY__MODULE__.Repo,
-    # ssl: true,
-    url: database_url,
-    pool_size: String.to_integer(System.get_env(\"POOL_SIZE\") || \"10\")
-    "
+    r_prod_secret = "
+    config :__MY__APP__, __MY__MODULE__.Repo,
+      # ssl: true,
+      url: database_url,
+      pool_size: String.to_integer(System.get_env(\"POOL_SIZE\") || \"10\")"
 
-    r_test = "# Configure your database
+    r_test = "
+    # Configure your database
     #
     # The MIX_TEST_PARTITION environment variable can be used
     # to provide built-in test partitioning in CI environment.
@@ -45,8 +47,7 @@ defmodule Stack.Phx do
       password: \"postgres\",
       database: \"__MY__APP___test\#{System.get_env(\"MIX_TEST_PARTITION\")}\",
       hostname: \"localhost\",
-      pool: Ecto.Adapters.SQL.Sandbox
-    "
+      pool: Ecto.Adapters.SQL.Sandbox"
 
     r_application = "      __MY__MODULE__.Repo,"
 
@@ -54,7 +55,8 @@ defmodule Stack.Phx do
 
     r_test_helper = "Ecto.Adapters.SQL.Sandbox.mode(__MY__MODULE__.Repo, :manual)"
 
-    r_channel_case = "  setup tags do
+    r_channel_case = "
+    setup tags do
       :ok = Ecto.Adapters.SQL.Sandbox.checkout(__MY__MODULE__.Repo)
 
       unless tags[:async] do
@@ -64,12 +66,12 @@ defmodule Stack.Phx do
       :ok
     end"
 
-    r_conn_case = "    :ok = Ecto.Adapters.SQL.Sandbox.checkout(__MY__MODULE__.Repo)
+    r_conn_case = "
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(__MY__MODULE__.Repo)
 
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(__MY__MODULE__.Repo, {:shared, self()})
-    end
-    "
+    end"
 
     structure
     |> Trunk.replace("config/config.exs", r_config, "")

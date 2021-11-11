@@ -20,8 +20,16 @@ defmodule Stack.Trunk do
       short_path = String.replace(path, cull_path, "", global: false)
 
       case File.dir?(path) do
-        true -> nil
-        false -> {short_path, File.read!(path)}
+        true ->
+          nil
+
+        false ->
+          data =
+            path
+            |> File.read!()
+            |> String.replace("\r", "")
+
+          {short_path, data}
       end
     end)
     |> Enum.reject(&is_nil/1)
@@ -45,11 +53,47 @@ defmodule Stack.Trunk do
 
   def replace_everywhere(structure, pattern, replacement) do
     Enum.map(structure, fn {key, data} ->
+      pattern = String.replace(pattern, "\r", "")
       {key, String.replace(data, pattern, replacement)}
     end)
   end
 
   def replace(structure, key, pattern, replacement) do
+    pattern =
+      pattern
+      |> String.replace("\r", "")
+      |> adjust_multiline()
+
     Map.update!(structure, key, &String.replace(&1, pattern, replacement))
+  end
+
+  defp adjust_multiline(string) when is_binary(string) do
+    String.split(string, "\n")
+    |> adjust_multiline()
+  end
+
+  defp adjust_multiline([string]), do: string
+
+  defp adjust_multiline(["", first_line]), do: String.trim_leading(first_line)
+
+  defp adjust_multiline(["", first_line | rest]) do
+    cull_offset =
+      first_line
+      |> String.graphemes()
+      |> Enum.with_index()
+      |> Enum.reduce_while(0, fn {letter, index}, _acc ->
+        case letter do
+          " " -> {:cont, index}
+          _ -> {:halt, index}
+        end
+      end)
+
+    [first_line | rest]
+    |> Enum.map(fn str ->
+      str
+      |> String.split_at(cull_offset)
+      |> elem(1)
+    end)
+    |> Enum.join("\n")
   end
 end
