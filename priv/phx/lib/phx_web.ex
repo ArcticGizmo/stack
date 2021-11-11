@@ -76,7 +76,7 @@ defmodule __MY__MODULE__Web do
 end
 
 defmodule __MY__MODULE__Web.Helper do
-  def respond(conn), do: Plug.Conn.send_respn(conn)
+  def respond(conn), do: Plug.Conn.send_resp(conn)
 
   def respond(conn, code, data) when is_binary(data) do
     Plug.Conn.send_resp(conn, code, data)

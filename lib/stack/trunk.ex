@@ -38,10 +38,15 @@ defmodule Stack.Trunk do
   def dump(structure, dirname) do
     target = Path.join(File.cwd!(), dirname)
 
-    Enum.each(structure, fn {short_path, data} ->
+    IO.puts("Dumping structure")
+
+    structure
+    |> Enum.sort_by(&elem(&1, 0))
+    |> Enum.each(fn {short_path, data} ->
       path = Path.join(target, short_path)
       File.mkdir_p!(Path.dirname(path))
       File.write(path, data)
+      IO.puts("  * #{path}")
     end)
   end
 
