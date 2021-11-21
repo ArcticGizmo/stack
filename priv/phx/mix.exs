@@ -40,7 +40,7 @@ defmodule EXAMPLE__MODULE__NAME.MixProject do
 
   defp aliases do
     [
-
+      setup: ["deps.get", "deps.compile", "phx.server"]
     ]
   end
 end
