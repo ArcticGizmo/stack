@@ -1,6 +1,6 @@
 defmodule Stack.Trunk do
-  defmacro bring(priv_path) do
-    structure = read_path_from_priv(priv_path)
+  defmacro bring(priv_path, ignore \\ []) do
+    structure = read_path_from_priv(priv_path, ignore)
 
     quote do
       unquote(structure)
@@ -8,7 +8,7 @@ defmodule Stack.Trunk do
     end
   end
 
-  defp read_path_from_priv(priv_path) do
+  defp read_path_from_priv(priv_path, ignored) do
     rel_path = "./priv/#{priv_path}"
 
     cull_path = "priv/#{priv_path}/"
@@ -19,7 +19,7 @@ defmodule Stack.Trunk do
     |> Enum.map(fn path ->
       short_path = String.replace(path, cull_path, "", global: false)
 
-      case File.dir?(path) do
+      case File.dir?(path) || ignore_path?(short_path, ignored) do
         true ->
           nil
 
@@ -33,6 +33,10 @@ defmodule Stack.Trunk do
       end
     end)
     |> Enum.reject(&is_nil/1)
+  end
+
+  defp ignore_path?(path, ignored) do
+    Enum.any?(ignored, &String.starts_with?(path, &1))
   end
 
   def dump(structure, dirname) do
