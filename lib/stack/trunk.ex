@@ -1,4 +1,6 @@
 defmodule Stack.Trunk do
+  @type structure :: map()
+
   defmacro bring(priv_path, ignore \\ []) do
     structure = read_path_from_priv(priv_path, ignore)
 
@@ -39,6 +41,7 @@ defmodule Stack.Trunk do
     Enum.any?(ignored, &String.starts_with?(path, &1))
   end
 
+  @spec dump(structure, String.t()) :: no_return()
   def dump(structure, dirname) do
     target = Path.join(File.cwd!(), dirname)
 
@@ -54,19 +57,23 @@ defmodule Stack.Trunk do
     end)
   end
 
+  @spec rename(structure, String.t(), String.t()) :: structure
   def rename(structure, from, to) do
     structure
     |> Map.put(to, structure[from])
     |> Map.drop([from])
   end
 
+  @spec replace_everywhere(structure, String.t(), String.t()) :: structure
   def replace_everywhere(structure, pattern, replacement) do
     Enum.map(structure, fn {key, data} ->
       pattern = String.replace(pattern, "\r", "")
       {key, String.replace(data, pattern, replacement)}
     end)
+    |> Enum.into(%{})
   end
 
+  @spec replace(structure, String.t(), String.t(), String.t()) :: structure
   def replace(structure, key, pattern, replacement) do
     pattern =
       pattern
@@ -104,5 +111,10 @@ defmodule Stack.Trunk do
       |> elem(1)
     end)
     |> Enum.join("\n")
+  end
+
+  @spec append(structure, String.t(), String.t()) :: structure
+  def append(structure, key, data) do
+    Map.update!(structure, key, &"#{&1}\n#{data}")
   end
 end
