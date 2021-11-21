@@ -1,12 +1,12 @@
-defmodule __MY__MODULE__Web do
+defmodule EXAMPLE__MODULE__NAMEWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use __MY__MODULE__Web, :controller
-      use __MY__MODULE__Web, :view
+      use EXAMPLE__MODULE__NAMEWeb, :controller
+      use EXAMPLE__MODULE__NAMEWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule __MY__MODULE__Web do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: __MY__MODULE__Web
+      use Phoenix.Controller, namespace: EXAMPLE__MODULE__NAMEWeb
 
       import Plug.Conn
-      import __MY__MODULE__Web.Helper
-      alias __MY__MODULE__Web.Router.Helpers, as: Routes
+      import EXAMPLE__MODULE__NAMEWeb.Helper
+      alias EXAMPLE__MODULE__NAMEWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -31,7 +31,7 @@ defmodule __MY__MODULE__Web do
     quote do
       use Phoenix.View,
         root: "lib/phx_web/templates",
-        namespace: __MY__MODULE__Web
+        namespace: EXAMPLE__MODULE__NAMEWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -62,8 +62,8 @@ defmodule __MY__MODULE__Web do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import __MY__MODULE__Web.ErrorHelpers
-      alias __MY__MODULE__Web.Router.Helpers, as: Routes
+      import EXAMPLE__MODULE__NAMEWeb.ErrorHelpers
+      alias EXAMPLE__MODULE__NAMEWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -75,7 +75,7 @@ defmodule __MY__MODULE__Web do
   end
 end
 
-defmodule __MY__MODULE__Web.Helper do
+defmodule EXAMPLE__MODULE__NAMEWeb.Helper do
   def respond(conn), do: Plug.Conn.send_resp(conn)
 
   def respond(conn, code, data) when is_binary(data) do

@@ -1,4 +1,4 @@
-defmodule __MY__MODULE__Web.ChannelCase do
+defmodule EXAMPLE__MODULE__NAMEWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -11,7 +11,7 @@ defmodule __MY__MODULE__Web.ChannelCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use __MY__MODULE__Web.ChannelCase, async: true`, although
+  by setting `use EXAMPLE__MODULE__NAMEWeb.ChannelCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -21,18 +21,18 @@ defmodule __MY__MODULE__Web.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       import Phoenix.ChannelTest
-      import __MY__MODULE__Web.ChannelCase
+      import EXAMPLE__MODULE__NAMEWeb.ChannelCase
 
       # The default endpoint for testing
-      @endpoint __MY__MODULE__Web.Endpoint
+      @endpoint EXAMPLE__MODULE__NAMEWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(__MY__MODULE__.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(EXAMPLE__MODULE__NAME.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(__MY__MODULE__.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(EXAMPLE__MODULE__NAME.Repo, {:shared, self()})
     end
 
     :ok

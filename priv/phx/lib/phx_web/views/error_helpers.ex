@@ -1,4 +1,4 @@
-defmodule __MY__MODULE__Web.ErrorHelpers do
+defmodule EXAMPLE__MODULE__NAMEWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """

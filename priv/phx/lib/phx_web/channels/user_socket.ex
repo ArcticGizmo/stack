@@ -1,7 +1,7 @@
-defmodule __MY__MODULE__Web.UserSocket do
+defmodule EXAMPLE__MODULE__NAMEWeb.UserSocket do
   use Phoenix.Socket
 
-  channel("user:all", __MY__MODULE__Web.UserChannel)
+  channel("user:all", EXAMPLE__MODULE__NAMEWeb.UserChannel)
 
   @impl true
   def connect(_params, socket, _connect_info) do

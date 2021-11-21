@@ -1,6 +1,6 @@
-defmodule __MY__MODULE__ do
+defmodule EXAMPLE__MODULE__NAME do
   @moduledoc """
-  __MY__MODULE__ keeps the contexts that define your domain
+  EXAMPLE__MODULE__NAME keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

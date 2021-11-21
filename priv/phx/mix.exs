@@ -1,9 +1,9 @@
-defmodule __MY__MODULE__.MixProject do
+defmodule EXAMPLE__MODULE__NAME.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :__MY__APP__,
+      app: :example__app__name,
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -16,7 +16,7 @@ defmodule __MY__MODULE__.MixProject do
 
   def application do
     [
-      mod: {__MY__MODULE__.Application, []},
+      mod: {EXAMPLE__MODULE__NAME.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
