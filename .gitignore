@@ -26,3 +26,9 @@ stack-*.tar
 /tmp/
 
 .elixir_ls
+
+stack
+
+phx/
+vue/
+native/
