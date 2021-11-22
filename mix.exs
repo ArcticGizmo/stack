@@ -30,7 +30,7 @@ defmodule Stack.MixProject do
   defp aliases() do
     [
       install: ["compile", "escript.build", "escript.install --force"],
-      go: ["run lib/stack.exs"]
+      go: ["compile", "run lib/stack.exs"]
     ]
   end
 end
